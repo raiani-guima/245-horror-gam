@@ -1,16 +1,27 @@
 [gd_scene format=3 uid="uid://rik7j7gorbds"]
 
+[ext_resource type="Script" uid="uid://bohgdpibu4141" path="res://player.gd" id="1_7isou"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_voht0"]
 size = Vector2(5, 5)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_oanja"]
 data = PackedVector3Array(2.5, 0, 2.5, -2.5, 0, 2.5, 2.5, 0, -2.5, -2.5, 0, 2.5, -2.5, 0, -2.5, 2.5, 0, -2.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbiem"]
+cull_mode = 2
+
 [sub_resource type="BoxMesh" id="BoxMesh_8ni4d"]
+material = SubResource("StandardMaterial3D_dbiem")
 size = Vector3(5, 3, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oanja"]
 size = Vector3(5, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1wp0t"]
+size = Vector3(5, 5, 0.2)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_voht0"]
 
 [node name="Quarto" type="Node3D" unique_id=1376269191]
 
@@ -30,3 +41,50 @@ mesh = SubResource("BoxMesh_8ni4d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ParedeFundo/StaticBody3D" unique_id=1574059713]
 shape = SubResource("BoxShape3D_oanja")
+
+[node name="Teto" type="MeshInstance3D" parent="." unique_id=576826189]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 3, 0)
+mesh = SubResource("BoxMesh_1wp0t")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Teto" unique_id=833163400]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Teto/StaticBody3D" unique_id=1227766086]
+shape = SubResource("BoxShape3D_oanja")
+
+[node name="ParededeFrente" type="MeshInstance3D" parent="." unique_id=864839969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
+mesh = SubResource("BoxMesh_8ni4d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ParededeFrente" unique_id=316750710]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParededeFrente/StaticBody3D" unique_id=1949070578]
+shape = SubResource("BoxShape3D_oanja")
+
+[node name="ParedeDireita" type="MeshInstance3D" parent="." unique_id=1576190582]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_8ni4d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ParedeDireita" unique_id=1232409959]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParedeDireita/StaticBody3D" unique_id=2100253398]
+shape = SubResource("BoxShape3D_oanja")
+
+[node name="ParedeEsquerda" type="MeshInstance3D" parent="." unique_id=421099618]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_8ni4d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ParedeEsquerda" unique_id=1748093090]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParedeEsquerda/StaticBody3D" unique_id=1081821201]
+shape = SubResource("BoxShape3D_oanja")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=990911558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_7isou")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2100464714]
+shape = SubResource("CapsuleShape3D_voht0")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=511758608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+current = true
