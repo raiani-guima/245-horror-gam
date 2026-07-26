@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://rik7j7gorbds"]
 
 [ext_resource type="Script" uid="uid://bohgdpibu4141" path="res://player.gd" id="1_7isou"]
+[ext_resource type="Script" uid="uid://cjq84bwspeaho" path="res://area_cama.gd" id="2_1wp0t"]
+[ext_resource type="Script" uid="uid://m86nvoq1qu0v" path="res://fade_layer.gd" id="2_dbiem"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_voht0"]
 size = Vector2(5, 5)
@@ -35,7 +37,10 @@ albedo_color = Color(1, 1, 1, 0.47058824)
 material = SubResource("StandardMaterial3D_7isou")
 size = Vector3(1, 1.5, 0.05)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lut1e"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_7vjq5"]
+material = SubResource("StandardMaterial3D_lut1e")
 size = Vector3(0.2, 0.75, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1wp0t"]
@@ -52,12 +57,28 @@ albedo_color = Color(0.36078432, 0.41960785, 0.4509804, 1)
 material = SubResource("StandardMaterial3D_7eyjo")
 size = Vector3(1.2, 0.15, 0.4)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_voht0"]
+size = Vector3(2, 1, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ni4d"]
+size = Vector3(1.4, 0.5, 2)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwc3q"]
 albedo_color = Color(0.23921569, 0.16862746, 0.12156863, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l4pva"]
 material = SubResource("StandardMaterial3D_wwc3q")
 size = Vector3(0.8, 1.8, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_doo81"]
+size = Vector3(0.5, 0.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bj1gh"]
+albedo_color = Color(0.41960785, 0.41960785, 0.32941177, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qjp2e"]
+material = SubResource("StandardMaterial3D_bj1gh")
+size = Vector3(0.15, 0.1, 0.15)
 
 [node name="Quarto" type="Node3D" unique_id=1376269191]
 
@@ -131,12 +152,13 @@ script = ExtResource("1_7isou")
 shape = SubResource("CapsuleShape3D_voht0")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=511758608]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.6, 0)
 current = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=183549530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-light_color = Color(1, 0.8509804, 0.627451, 1)
+light_color = Color(0.2901961, 0.3529412, 0.54901963, 1)
+light_energy = 3.0
 
 [node name="vidro" type="MeshInstance3D" parent="." unique_id=1645428478]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 1.5, 0)
@@ -158,6 +180,52 @@ mesh = SubResource("BoxMesh_6l3ax")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.325, -0.8)
 mesh = SubResource("BoxMesh_ei0sm")
 
+[node name="AreaCama" type="Area3D" parent="cama" unique_id=1600225002]
+script = ExtResource("2_1wp0t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="cama/AreaCama" unique_id=678580975]
+shape = SubResource("BoxShape3D_voht0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="cama" unique_id=1966708345]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="cama/StaticBody3D" unique_id=837142970]
+shape = SubResource("BoxShape3D_8ni4d")
+
 [node name="GuardaRoupa" type="MeshInstance3D" parent="." unique_id=746762852]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.9, 2)
 mesh = SubResource("BoxMesh_l4pva")
+
+[node name="FadeLayer" type="CanvasLayer" parent="." unique_id=2012232007]
+script = ExtResource("2_dbiem")
+
+[node name="FadeRect" type="ColorRect" parent="FadeLayer" unique_id=1899200168]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LegendaLabel" type="Label" parent="FadeLayer" unique_id=144563489]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="SubtitleLabel" type="Label" parent="FadeLayer" unique_id=1731923887]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CriadoMudo" type="MeshInstance3D" parent="." unique_id=398664985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.25, -1.9)
+mesh = SubResource("BoxMesh_doo81")
+
+[node name="Despertador" type="MeshInstance3D" parent="CriadoMudo" unique_id=456852990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("BoxMesh_qjp2e")
