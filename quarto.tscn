@@ -70,15 +70,45 @@ albedo_color = Color(0.23921569, 0.16862746, 0.12156863, 1)
 material = SubResource("StandardMaterial3D_wwc3q")
 size = Vector3(0.8, 1.8, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6l3ax"]
+size = Vector3(0.8, 1.8, 0.5)
+
 [sub_resource type="BoxMesh" id="BoxMesh_doo81"]
 size = Vector3(0.5, 0.5, 0.4)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bj1gh"]
-albedo_color = Color(0.41960785, 0.41960785, 0.32941177, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chyoy"]
+albedo_color = Color(0.22745098, 0.20784314, 0.18039216, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qjp2e"]
-material = SubResource("StandardMaterial3D_bj1gh")
+material = SubResource("StandardMaterial3D_chyoy")
 size = Vector3(0.15, 0.1, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bj1gh"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vjq5"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ni4d"]
+albedo_color = Color(0.41960785, 0.3647059, 0.30980393, 1)
+metallic = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_voht0"]
+material = SubResource("StandardMaterial3D_8ni4d")
+radius = 0.05
+height = 0.09
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vjq5"]
+albedo_color = Color(0.101960786, 0.101960786, 0.12156863, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ni4d"]
+material = SubResource("StandardMaterial3D_7vjq5")
+size = Vector2(15, 15)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_voht0"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 4.0
 
 [node name="Quarto" type="Node3D" unique_id=1376269191]
 
@@ -195,6 +225,11 @@ shape = SubResource("BoxShape3D_8ni4d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.9, 2)
 mesh = SubResource("BoxMesh_l4pva")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="GuardaRoupa" unique_id=915527372]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GuardaRoupa/StaticBody3D" unique_id=104809758]
+shape = SubResource("BoxShape3D_6l3ax")
+
 [node name="FadeLayer" type="CanvasLayer" parent="." unique_id=2012232007]
 script = ExtResource("2_dbiem")
 
@@ -229,3 +264,40 @@ mesh = SubResource("BoxMesh_doo81")
 [node name="Despertador" type="MeshInstance3D" parent="CriadoMudo" unique_id=456852990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 mesh = SubResource("BoxMesh_qjp2e")
+
+[node name="Label3D" type="Label3D" parent="CriadoMudo/Despertador" unique_id=26220632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.05, 0.08)
+pixel_size = 0.0018
+billboard = 2
+fixed_size = true
+modulate = Color(0.5411765, 0.22745098, 0.12156863, 1)
+text = "2:45"
+font_size = 16
+outline_size = 0
+
+[node name="Porta" type="StaticBody3D" parent="." unique_id=908246554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 1, 2.4)
+
+[node name="PortaMesh" type="MeshInstance3D" parent="Porta" unique_id=2005563293]
+mesh = SubResource("BoxMesh_bj1gh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Porta" unique_id=1951595399]
+shape = SubResource("BoxShape3D_7vjq5")
+
+[node name="Macaneta" type="MeshInstance3D" parent="Porta" unique_id=982388997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -0.03, -0.1)
+mesh = SubResource("SphereMesh_voht0")
+
+[node name="RuaExterna" type="MeshInstance3D" parent="." unique_id=273810585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+mesh = SubResource("PlaneMesh_8ni4d")
+
+[node name="Poste" type="MeshInstance3D" parent="RuaExterna" unique_id=811841978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 0)
+mesh = SubResource("CylinderMesh_voht0")
+
+[node name="LuzPoste" type="OmniLight3D" parent="RuaExterna/Poste" unique_id=1191929917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+light_color = Color(1, 0.6666667, 0.33333334, 1)
+light_energy = 3.0
+light_indirect_energy = 8.0
